@@ -238,8 +238,11 @@ int main(int argc, char* argv[])
         }
 
         printf("Waiting for publication on topic %s for client with ClientID: %s\n", TOPIC, CLIENTID);
+        while (!finished)
+            usleep(1000000L);
+
         MQTTAsync_destroy(&client);
-        usleep(1200000000L);
+        usleep(120 * 1000000L);
     }
 
  	return rc;
