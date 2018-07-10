@@ -203,6 +203,7 @@ int main(int argc, char* argv[])
 	int rc;
 
     while(1){
+        finished = 0;
         char *address = getenv("MOSQUITTO_URL");
         char *username = getenv("MOSQUITTO_USERNAME");
         char *password = getenv("MOSQUITTO_PASS");
@@ -240,6 +241,8 @@ int main(int argc, char* argv[])
         printf("Waiting for publication on topic %s for client with ClientID: %s\n", TOPIC, CLIENTID);
         while (!finished)
             usleep(1000000L);
+
+        printf("Finished!");
 
         MQTTAsync_destroy(&client);
         usleep(120 * 1000000L);
