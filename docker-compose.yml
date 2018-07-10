@@ -19,11 +19,6 @@ services:
     restart: always
     build:
       context: ./thermometer
-      args:
-        MOSQUITTO_URL: mosquitto
-        MOSQUITTO_USERNAME: ${MOSQUITTO_USERNAME}
-        MOSQUITTO_PASS: ${MOSQUITTO_PASS}
-        TEMP_CITY: ${TEMP_CITY}
   hass:
     privileged: true
     restart: always

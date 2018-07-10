@@ -16,7 +16,7 @@ RUN sed -i "s|#user mosquitto|user root|g" bin/mosquitto.conf \
    && sed -i "s|#allow_anonymous true|allow_anonymous false|g" bin/mosquitto.conf \
    && sed -i "s|#password_file|password_file /data/mosquitto/mosquitto_pass|g" bin/mosquitto.conf \
    && touch bin/mosquitto_pass \
-   && bin/mosquitto_passwd -b bin/mosquitto_pass ${MOSQUITTO_USERNAME} ${MOSQUITTO_PASS}
+   && bin/mosquitto_passwd -b bin/mosquitto_pass $MOSQUITTO_USERNAME $MOSQUITTO_PASS
 
 COPY run.sh /usr/src/app/
 
