@@ -1,0 +1,38 @@
+version: "2"
+volumes:
+    resin-data:
+services:
+  mosquitto:
+    privileged: true
+    restart: always
+    build:
+      context: ./mosquitto
+      args:
+        MOSQUITTO_USERNAME: ${MOSQUITTO_USERNAME}
+        MOSQUITTO_PASS: ${MOSQUITTO_PASS}
+    volumes:
+      - resin-data:/data
+    ports:
+      - 1883:1883
+  thermometer:
+    privileged: true
+    restart: always
+    build:
+      context: ./thermometer
+      args:
+        MOSQUITTO_URL: mosquitto
+        MOSQUITTO_USERNAME: ${MOSQUITTO_USERNAME}
+        MOSQUITTO_PASS: ${MOSQUITTO_PASS}
+        TEMP_CITY: ${TEMP_CITY}
+  hass:
+    privileged: true
+    restart: always
+    build: ./resin-homeassistant
+    expose:
+      - 80
+    ports:
+      - 80:8123
+    depends_on:
+      - mosquitto
+    volumes:
+      - resin-data:/data
