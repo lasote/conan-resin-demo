@@ -3,16 +3,10 @@ volumes:
     resin-data:
 services:
   mosquitto:
-    environment:
-      MOSQUITTO_USERNAME:
-      MOSQUITTO_PASS:
     privileged: true
     restart: always
     build:
       context: ./mosquitto
-      args:
-        MOSQUITTO_USERNAME: ${MOSQUITTO_USERNAME}
-        MOSQUITTO_PASS: ${MOSQUITTO_PASS}
     volumes:
       - resin-data:/data
     ports:

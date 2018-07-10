@@ -3,8 +3,6 @@ FROM resin/armv7hf-python
 WORKDIR /usr/src/app
 ENV LD_LIBRARY_PATH /usr/src/app/bin
 
-ARG MOSQUITTO_USERNAME
-ARG MOSQUITTO_PASS
 RUN sudo pip install conan --upgrade
 RUN conan remote add iot https://api.bintray.com/conan/lasote/testing-iot -i 0 \
    && conan profile new default --detect \
@@ -14,9 +12,7 @@ RUN conan remote add iot https://api.bintray.com/conan/lasote/testing-iot -i 0 \
 
 RUN sed -i "s|#user mosquitto|user root|g" bin/mosquitto.conf \
    && sed -i "s|#allow_anonymous true|allow_anonymous false|g" bin/mosquitto.conf \
-   && sed -i "s|#password_file|password_file /data/mosquitto/mosquitto_pass|g" bin/mosquitto.conf \
-   && touch bin/mosquitto_pass \
-   && bin/mosquitto_passwd -b bin/mosquitto_pass $MOSQUITTO_USERNAME $MOSQUITTO_PASS
+   && sed -i "s|#password_file|password_file /data/mosquitto/mosquitto_pass|g" bin/mosquitto.conf
 
 COPY run.sh /usr/src/app/
 
