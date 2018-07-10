@@ -1,8 +1,11 @@
-version: "3"
+version: "2"
 volumes:
     resin-data:
 services:
   mosquitto:
+    environment:
+      MOSQUITTO_USERNAME:
+      MOSQUITTO_PASS:
     privileged: true
     restart: always
     build:
