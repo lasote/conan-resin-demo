@@ -222,8 +222,6 @@ int main(int argc, char* argv[])
 	    }
 
         printf("Temperature: %d\n", get_temperature(city));
-        return 0;
-
 
         MQTTAsync_create(&client, address, CLIENTID, MQTTCLIENT_PERSISTENCE_NONE, NULL);
         MQTTAsync_setCallbacks(client, NULL, connlost, NULL, NULL);
