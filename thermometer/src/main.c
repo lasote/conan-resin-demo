@@ -244,7 +244,7 @@ int main(int argc, char* argv[])
 
         printf("Waiting for publication on topic %s for client with ClientID: %s\n", TOPIC, CLIENTID);
         while (!finished)
-            usleep(5000000L);
+            usleep(1200000000L);
 
 	}
 	MQTTAsync_destroy(&client);
