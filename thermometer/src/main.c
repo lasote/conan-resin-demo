@@ -202,24 +202,21 @@ int main(int argc, char* argv[])
 	MQTTAsync_token token;
 	int rc;
 
+    while(1){
+        char *address = getenv("MOSQUITTO_URL");
+        char *username = getenv("MOSQUITTO_USERNAME");
+        char *password = getenv("MOSQUITTO_PASS");
+        char *city = getenv("TEMP_CITY");
 
+        if(address == NULL || username == NULL || password == NULL){
+            printf("Error, not MOSQUITTO_URL, MOSQUITTO_USERNAME or MOSQUITTO_PASS env vars not declared\n");
+            return -2;
+        }
 
-	while(1){
-	    finished = 0;
-	    char *address = getenv("MOSQUITTO_URL");
-	    char *username = getenv("MOSQUITTO_USERNAME");
-	    char *password = getenv("MOSQUITTO_PASS");
-	    char *city = getenv("TEMP_CITY");
-
-	    if(address == NULL || username == NULL || password == NULL){
-	        printf("Error, not MOSQUITTO_URL, MOSQUITTO_USERNAME or MOSQUITTO_PASS env vars not declared\n");
-	        return -2;
-	    }
-
-	    if(city == NULL){
-	        printf("Error, specify a TEMP_CITY env var\n");
-	        return -2;
-	    }
+        if(city == NULL){
+            printf("Error, specify a TEMP_CITY env var\n");
+            return -2;
+        }
 
         printf("Temperature: %d\n", get_temperature(city));
 
@@ -241,10 +238,9 @@ int main(int argc, char* argv[])
         }
 
         printf("Waiting for publication on topic %s for client with ClientID: %s\n", TOPIC, CLIENTID);
-        while (!finished)
-            usleep(1200000000L);
+        MQTTAsync_destroy(&client);
+        usleep(1200000000L);
+    }
 
-	}
-	MQTTAsync_destroy(&client);
  	return rc;
 }

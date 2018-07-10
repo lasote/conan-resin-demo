@@ -8,7 +8,7 @@ RUN conan remote add iot https://api.bintray.com/conan/lasote/testing-iot -i 0 \
    && conan profile new default --detect \
    && conan profile update settings.arch=armv7hf default \
    && conan profile update settings.arch_build=armv7hf default \
-   && conan install thermometer/1.0@conan/stable --update && echo "installed"
+   && conan install thermometer/1.0@conan/stable --update && echo "installed2"
 
 COPY run.sh /usr/src/app/
 
